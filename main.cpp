@@ -16,7 +16,7 @@ color ray_color(const ray& r){
 	vec3 unit_direction = unit_vector(r.direction());
 
 	auto t = 0.5*(unit_direction.y() + 1.0);
-	return (1.0 - t) * color(1.0,1.0,1.0) + t * color(0.5,0.7,1.0);
+	return color(1.0,1.0,1.0) * (1.0 - t) + color(0.5,0.7,1.0) * t;
 }
 
 int main(){
@@ -56,7 +56,7 @@ int main(){
 			auto u = double(i) /(image_width - 1);
 			auto v = double(j) /(image_height - 1);
 
-			ray r(origin, lower_left_corner + u*horizontal + v*vertical - origin);
+			ray r(origin, lower_left_corner + horizontal*u + vertical*v - origin);
 
 			//color pixel_color(double(i)/(image_width-1),double(j)/(image_height-1),0.25);
 			color pixel_color = ray_color(r);
